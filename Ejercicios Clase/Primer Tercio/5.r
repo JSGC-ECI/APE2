@@ -1,5 +1,5 @@
 library(tidyverse)
-n <- 1000
+n <- 50
 p <- 0.7
 x <- 0:n
 mu <- n*p
@@ -9,5 +9,11 @@ f.binom <- dbinom(x,n,p)
 f.norm <- dnorm(x, mu, sgm)
 df <- data_frame(x,f.binom, f.norm)
 ggplot(df, aes(x, f.binom, fill = x <= 6)) + geom_col() + geom_line(aes(x,f.norm))
-pbinom(690,n,p)
-pnorm(690.5,mu,sgm)
+a <- pbinom(33,n,p)
+b <- pbinom(37,n,p )
+t <- b-a 
+t
+c <- pnorm(33.5,mu,sgm)
+d <- pnorm(37.5,mu,sgm)
+h <- d-a
+h
