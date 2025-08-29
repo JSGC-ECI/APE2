@@ -11,11 +11,9 @@ Solve the next exercises using computational tools like R or Python, R Mardown o
 knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
 ```
 
-
 ```{r}
 library(tidyverse)
 ```
-
 
 ## Experiment Setup
 
@@ -25,77 +23,188 @@ $$S=\{HHH,HHT,HTH,THH,HTT,THT,TTH,TTT\}$$
 
 with each outcome having probability $1/8$.
 
-1. Describe the next events:
+1.  Describe the next events:
 
-$A:$ "first toss is $H$."
-$B:$ "second toss is $H$."
-$C:$ "all tosses are $H$."
-$D:$ "exactly one $H$."
+$A:$ "first toss is $H$." $B:$ "second toss is $H$." $C:$ "all tosses are $H$." $D:$ "exactly one $H$."
 
-2. Check if $A$ and $B$ are independent. Are they mutually exclusive?
+2.  Check if $A$ and $B$ are independent. Are they mutually exclusive?
 
-3. Check if $C$ and $D$ are independent. Are they mutually exclusive?
+    ```{r}
 
-4. Prove: If two events $E, F$ are mutually exclusive and both have positive probability, then they cannot be independent.
+    ```
 
-5. Take event $G=$ “first toss is head,” $G^C=$ “first toss is tail.” Show $G$ and $G^C$ are mutually exclusive and compute whether they are independent.
+3.  Check if $C$ and $D$ are independent. Are they mutually exclusive?
 
-6. Compute $P(Z \ge 1.96)$ for a standard normal $Z \sim \mathcal N(0,1)$ and illustrate it by shading the right tail.
+    ```{r}
+
+    ```
+
+4.  Prove: If two events $E, F$ are mutually exclusive and both have positive probability, then they cannot be independent.
+
+    ```{r}
+
+    ```
+
+5.  Take event $G=$ “first toss is head,” $G^C=$ “first toss is tail.” Show $G$ and $G^C$ are mutually exclusive and compute whether they are independent.
+
+    ```{r}
+
+    ```
+
+6.  Compute $P(Z \ge 1.96)$ for a standard normal $Z \sim \mathcal N(0,1)$ and illustrate it by shading the right tail.
 
 Using pnorm(), compute $P(Z \ge 1.96)$.
 
+```{r}
+
+```
+
 Make a plot of the standard normal density on $x \in [-4,4]$ with the right tail ($x \ge 1.96$) shaded.
 
+```{r}
 
+```
 
+7.  For $Z \sim \mathcal N(0,1)$ compute:
 
-7. For $Z \sim \mathcal N(0,1)$ compute:
+<!-- -->
 
 (a) $P(Z \le -1.5)$
 
+    ```{r}
+
+    ```
+
 (b) $P(Z \ge 2.1)$
+
+    ```{r}
+
+    ```
 
 (c) $P(|Z| \ge 2)$
 
+    ```{r}
+
+    ```
+
 (d) The central 95% probability $P(-z \le Z \le z)$ and the value of $z$ such that this equals $0.95$.
 
-8. (a) Find the 90th percentile of $Z \sim \mathcal N(0,1)$, i.e., compute $z_{0.90}$ such that $P(Z \le z_{0.90})=0.90$.
+    ```{r}
 
-(b) Find $z$ such that $P(|Z| \le z)=0.90$.
+    ```
 
-(c) Suppose $X \sim \mathcal N(\mu=100, \sigma=15)$. Compute the score threshold $c$ for the top 5%.
+<!-- -->
 
-9. For $Z \sim \mathcal N(0,1)$:
+8.  dd
+
+    (a) Find the 90th percentile of $Z \sim \mathcal N(0,1)$, i.e., compute $z_{0.90}$ such that $P(Z \le z_{0.90})=0.90$.
+
+        ```{r}
+
+        ```
+
+    (b) Find $z$ such that $P(|Z| \le z)=0.90$.
+
+        ```{r}
+
+        ```
+
+    (c) Suppose $X \sim \mathcal N(\mu=100, \sigma=15)$. Compute the score threshold $c$ for the top 5%.
+
+        ```{r}
+
+        ```
+
+9.  For $Z \sim \mathcal N(0,1)$:
+
+<!-- -->
 
 (a) Simulate $N=100{,}000$ draws and estimate $P(Z \ge 1.96)$ empirically.
 
+    ```{r}
+    x <- rnorm(100, 5, 2)
+    mean(x)
+    hist(x)
+    ```
+
 (b) Compare with the exact value.
+
+    ```{r}
+
+    ```
 
 (c) Plot a histogram with an overlaid theoretical density curve.
 
+    ```{r}
+
+    ```
+
+<!-- -->
+
 10. Let $X \sim \mathcal N(\mu=70,\ \sigma=8)$. Compute:
+
+<!-- -->
 
 (a) $P(X \le 60)$
 
+    ```{r}
+
+    ```
+
 (b) $P(65 \le X \le 85)$
 
+    ```{r}
+
+    ```
+
 (c) The 2.5th percentile of $X$
+
+    ```{r}
+
+    ```
 
 Do each both directly and by standardizing to $Z=\dfrac{X-\mu}{\sigma}$.
 
 11. Generate $N=200$ observations from $\mathcal N(\mu = 5, \sigma^2=2^2)$, then:
 
+    ```{r}
+
+    ```
+
+<!-- -->
+
 (a) Plot histogram with density overlay.
+
+    ```{r}
+
+    ```
 
 (b) Make a QQ‑plot to assess normality.
 
-12. (a) For $Z \sim \mathcal N(0,1)$, compute $z_\alpha$ such that $P(|Z| \le z_\alpha) = 0.99$.
+    ```{r}
 
-(b) For $X \sim \mathcal N(\mu = 120, \sigma=10)$, find the symmetric 90% interval around the mean.
+    ```
 
-(c) Verify by simulation that about 90% of draws fall in your interval from (b).
+<!-- -->
 
+12. 
 
+    (a) For $Z \sim \mathcal N(0,1)$, compute $z_\alpha$ such that $P(|Z| \le z_\alpha) = 0.99$.
 
+        ```{r}
 
+        ```
 
+    (b) For $X \sim \mathcal N(\mu = 120, \sigma=10)$, find the symmetric 90% interval around the mean.
+
+    (c) 
+
+        ```{r}
+
+        ```
+
+    (d) Verify by simulation that about 90% of draws fall in your interval from (b).
+
+        ```{r}
+
+        ```
