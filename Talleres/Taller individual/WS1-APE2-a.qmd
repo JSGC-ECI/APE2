@@ -7,8 +7,8 @@ editor: visual
 
 Solve the next exercises using computational tools like R or Python, R Mardown or Google Colab. Make a pdf report where you show the whole procedure. Take into account that you have to be clear because it is something to be assesed.
 
-```{r setup, include=TRUE, echo=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = F, warning = F)
+```{r setup, include=TRUE, echo=TRUE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
 ```
 
 ```{r}
@@ -21,22 +21,95 @@ From exercise 1 to 5 consider the sample space of tossing a fair coin 3 times:
 
 $$S=\{HHH,HHT,HTH,THH,HTT,THT,TTH,TTT\}$$
 
+```{r}
+# Espacio muestral
+S <- c("HHH","HHT","HTH","THH","HTT","THT","TTH","TTT")
+```
+
 with each outcome having probability $1/8$.
 
 1.  Describe the next events:
 
-$A:$ "first toss is $H$." $B:$ "second toss is $H$." $C:$ "all tosses are $H$." $D:$ "exactly one $H$."
+$A:$ "first toss is $H$."
+
+```{r}
+A <- c("HHH","HHT","HTH","HTT")
+A
+```
+
+$B:$ "second toss is $H$."
+
+```{r}
+B <- c("HHH","HHT","THH","THT")
+B
+```
+
+$C:$ "all tosses are $H$."
+
+```{r}
+C <- c("HHH")
+C
+```
+
+$D:$ "exactly one $H$."
+
+```{r}
+D <- c("HTT","THT","TTH")
+D
+```
 
 2.  Check if $A$ and $B$ are independent. Are they mutually exclusive?
 
     ```{r}
+    # Tamaños
+    n <- length(S)
+    PA <- length(A) / n
+    PB <- length(B) / n
+
+    # Intersección
+    interseccion <- intersect(A, B)
+    PAB <- length(interseccion) / n
+
+    # Independencia: P(A ∩ B) == P(A) * P(B)
+    independientes <- (PAB == PA * PB)
+
+    # Mutuamente excluyentes: P(A ∩ B) == 0
+    mutuamente_excluyentes <- (PAB == 0)
+
+    # Resultados
+    cat("P(A) =", PA, "\n")
+    cat("P(B) =", PB, "\n")
+    cat("P(A ∩ B) =", PAB, "\n")
+    cat("¿Independientes? ->", independientes, "\n")
+    cat("¿Mutuamente excluyentes? ->", mutuamente_excluyentes, "\n")
+
 
     ```
 
 3.  Check if $C$ and $D$ are independent. Are they mutually exclusive?
 
     ```{r}
+    # Tamaños
+    n <- length(S)
+    PC <- length(C) / n
+    PD <- length(D) / n
 
+    # Intersección
+    interseccion <- intersect(C, D)
+    PCD <- length(interseccion) / n
+
+    # Independencia: P(C ∩ D) == P(C) * P(D)
+    independientes <- (PCD == PC * PD)
+
+    # Mutuamente excluyentes: P(C ∩ D) == 0
+    mutuamente_excluyentes <- (PCD == 0)
+
+    # Resultados
+    cat("P(C) =", PC, "\n")
+    cat("P(D) =", PD, "\n")
+    cat("P(C ∩ D) =", PCD, "\n")
+    cat("¿Independientes? ->", independientes, "\n")
+    cat("¿Mutuamente excluyentes? ->", mutuamente_excluyentes, "\n")
     ```
 
 4.  Prove: If two events $E, F$ are mutually exclusive and both have positive probability, then they cannot be independent.
@@ -48,20 +121,59 @@ $A:$ "first toss is $H$." $B:$ "second toss is $H$." $C:$ "all tosses are $H$." 
 5.  Take event $G=$ “first toss is head,” $G^C=$ “first toss is tail.” Show $G$ and $G^C$ are mutually exclusive and compute whether they are independent.
 
     ```{r}
+    G <- c("HHH","HHT","HTH","HTT")
+    G
+    Gc <- c("THH","THT","TTH","TTT")
+    Gc
 
+    # Probabilidades
+    P_G <- length(G) / length(S)      
+    P_Gc <- length(Gc) / length(S)   
+    P_intersection <- length(intersect(G, Gc)) / length(S) 
+
+    cat("P(G) =", P_G, "\n")
+    cat("P(Gc) =", P_Gc, "\n")
+    cat("P(G ∩ Gc) =", P_intersection, "\n")
+
+    # Verificar mutuamente excluyentes
+    if (P_intersection == 0) {
+      cat("G y Gc son mutuamente excluyentes.\n")
+    } else {
+      cat("G y Gc NO son mutuamente excluyentes.\n")
+    }
+
+    # Verificar independencia
+    if (P_intersection == P_G * P_Gc) {
+      cat("G y Gc son independientes.\n")
+    } else {
+      cat("G y Gc NO son independientes.\n")
+    }
     ```
 
 6.  Compute $P(Z \ge 1.96)$ for a standard normal $Z \sim \mathcal N(0,1)$ and illustrate it by shading the right tail.
 
 Using pnorm(), compute $P(Z \ge 1.96)$.
 
-```{r}
-
-```
-
 Make a plot of the standard normal density on $x \in [-4,4]$ with the right tail ($x \ge 1.96$) shaded.
 
 ```{r}
+# Probabilidad P(Z >= 1.96)
+p <- 1 - pnorm(1.96)
+p
+
+
+# Datos para la curva normal estándar
+x <- seq(-4, 4, length = 1000)
+y <- dnorm(x)
+
+df <- data.frame(x, y)
+
+# Cola a sombrear (x >= 1.96)
+df_tail <- subset(df, x >= 1.96)
+
+ggplot(df, aes(x, y)) +
+  geom_line(color = "blue", size = 1) +                                
+  geom_area(data = df_tail, aes(x, y), fill = "red", alpha = 0.4)
 
 ```
 
@@ -72,25 +184,26 @@ Make a plot of the standard normal density on $x \in [-4,4]$ with the right tail
 (a) $P(Z \le -1.5)$
 
     ```{r}
-
+    pnorm(-1.5)
     ```
 
 (b) $P(Z \ge 2.1)$
 
     ```{r}
-
+    1 - pnorm(2.1)
     ```
 
 (c) $P(|Z| \ge 2)$
 
     ```{r}
-
+    # P(|Z| >= 2) = P(Z <= -2) + P(Z >= 2)
+    pnorm(-2) + (1 - pnorm(2))
     ```
 
 (d) The central 95% probability $P(-z \le Z \le z)$ and the value of $z$ such that this equals $0.95$.
 
     ```{r}
-
+    qnorm(0.95)
     ```
 
 <!-- -->
@@ -122,21 +235,22 @@ Make a plot of the standard normal density on $x \in [-4,4]$ with the right tail
 (a) Simulate $N=100{,}000$ draws and estimate $P(Z \ge 1.96)$ empirically.
 
     ```{r}
-    x <- rnorm(100, 5, 2)
-    mean(x)
-    hist(x)
+    Z <- rnorm(100000, mean = 0, sd = 1)
+    mean(Z >= 1.96)
     ```
 
 (b) Compare with the exact value.
 
     ```{r}
-
+    1 - pnorm(1.96, mean = 0, sd = 1)
     ```
 
 (c) Plot a histogram with an overlaid theoretical density curve.
 
     ```{r}
-
+    ggplot(data.frame(Z), aes(x = Z)) +
+      geom_histogram(aes(y = ..density..), bins = 40, fill = "skyblue", color = "black", alpha = 0.6) +
+      stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "red", size = 1)
     ```
 
 <!-- -->
@@ -165,10 +279,20 @@ Make a plot of the standard normal density on $x \in [-4,4]$ with the right tail
 
 Do each both directly and by standardizing to $Z=\dfrac{X-\mu}{\sigma}$.
 
+q \<- 1-p
+
 11. Generate $N=200$ observations from $\mathcal N(\mu = 5, \sigma^2=2^2)$, then:
 
     ```{r}
-
+    #directly
+    n <- 200
+    mu <- 5
+    sgm <- 2
+    x <- rnorm(n,mu,sgm)
+    df <- data.frame(x)
+    #  by standardizing
+    z <- (x - mu)/sgm
+    df_z <- data.frame(z)
     ```
 
 <!-- -->
@@ -176,13 +300,23 @@ Do each both directly and by standardizing to $Z=\dfrac{X-\mu}{\sigma}$.
 (a) Plot histogram with density overlay.
 
     ```{r}
-
+    #directly
+    ggplot(df , aes(x)) + geom_histogram()
+    #  by standardizing
+    ggplot(df_z , aes(z)) + geom_histogram()
     ```
 
 (b) Make a QQ‑plot to assess normality.
 
     ```{r}
-
+    #directly
+    ggplot(df, aes(sample = x)) +
+      stat_qq() +
+      stat_qq_line()
+    #  by standardizing
+    ggplot(df_z, aes(sample = z)) +
+      stat_qq() +
+      stat_qq_line()
     ```
 
 <!-- -->
@@ -192,18 +326,17 @@ Do each both directly and by standardizing to $Z=\dfrac{X-\mu}{\sigma}$.
     (a) For $Z \sim \mathcal N(0,1)$, compute $z_\alpha$ such that $P(|Z| \le z_\alpha) = 0.99$.
 
         ```{r}
-
+        p <- 0.99
+        qnorm((1 + p)/2)
         ```
 
-    (b) For $X \sim \mathcal N(\mu = 120, \sigma=10)$, find the symmetric 90% interval around the mean.
-
-    (c) 
+    (b) For $X \sim \mathcal N(\mu = 120, \sigma=10)$, find the symmetric 90% interval around the mean
 
         ```{r}
 
         ```
 
-    (d) Verify by simulation that about 90% of draws fall in your interval from (b).
+    (c) Verify by simulation that about 90% of draws fall in your interval from (b).
 
         ```{r}
 
